@@ -1,0 +1,102 @@
+﻿<Window x:Class="WPF_Updated_Money_Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Updated_Money_Manager"
+        xmlns:materialDesign="
+        http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+    <Grid Margin="10">
+        <!-- Рядки та стовбці будуть визначені тут -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                   Text="Фінансовий менеджер"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="0,0,0,10"/>
+        <GroupBox Header="Додати запис"
+                  Grid.Column="0" Grid.Row="1"
+                  Margin="10">
+            <!-- Вміст GroupBox буде додано тут -->
+            <StackPanel>
+                <TextBlock Text="Тип запису:" Margin="0,5,0,5"/>
+                <ComboBox x:Name="TransactionTypeCombobox" Margin="0,0,0,10">
+                    <ComboBoxItem Content="Доходи"/>
+                    <ComboBoxItem Content="Витрати"/>
+                </ComboBox>
+
+                <TextBlock Text="Категорії:" Margin="0,5,0,5"/>
+                <ComboBox x:Name="CategoryComboBox" Margin="0,0,0,10">
+                    <ComboBoxItem Content="Зарплата"/>
+                    <ComboBoxItem Content="Комунальні платежі"/>
+                    <ComboBoxItem Content="Освіта"/>
+                    <ComboBoxItem Content="Медицина"/>
+                    <ComboBoxItem Content="Продукти"/>
+                    <ComboBoxItem Content="Розваги"/>
+                    <ComboBoxItem Content="Волонтерство"/>
+                    <ComboBoxItem Content="Гардероб"/>
+                    <ComboBoxItem Content="Інше"/>
+                </ComboBox>
+
+                <TextBlock Text="Сума" Margin="0,5,0,5"/>
+                <TextBox x:Name="AmountTextBox" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Дата" Margin="0,5,0,5"/>
+                <DatePicker x:Name="TransactionDatePicker"
+                            Margin="0,10,0,10"/>
+
+                <Button Content="Додати" Width="100"
+                        HorizontalAlignment="Left"
+                        Click="AddTransaction_Click"
+                        Style="{DynamicResource MaterialDesignFlatButton}"/>
+                <Button Content="Відкрити клікер" Width="150"
+                        HorizontalAlignment="Left"
+                        Click="Button_Click"
+                        Style="{DynamicResource MaterialDesignFlatButton}"/>
+            </StackPanel>
+        </GroupBox>
+        <!-- Секція історії транзакцій -->
+        <GroupBox Header="Історія транзакцій" Grid.Row="1" Grid.Column="1"
+                  Margin="10">
+            <ListView x:Name="TransactionHistoryListView">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Дата"
+                                        DisplayMemberBinding="{Binding Date}"
+                                        Width="100"/>
+                        <GridViewColumn Header="Тип"
+                                        DisplayMemberBinding="{Binding Type}"
+                                        Width="100"/>
+                        <GridViewColumn Header="Категорія"
+                                        DisplayMemberBinding="{Binding Category}"
+                                        Width="150"/>
+                        <GridViewColumn Header="Сума"
+                                        DisplayMemberBinding="{Binding Amount}"
+                                        Width="100"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+        <!-- Секція балансу та виходу -->
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="10">
+            <TextBlock Text="Баланс: " FontSize="16" FontWeight="Bold"/>
+            <TextBlock x:Name="BalanceTextBlock" Text="0.00 грн" FontSize="16"
+                       FontWeight="Bold" Margin="5,0,0,0"/>
+            <Button Content="Вихід" Width="100" Margin="20,0,0,0" Click="Exit_Button"
+                    Style="{DynamicResource MaterialDesignFlatButton}"/>
+        </StackPanel>
+    </Grid>
+</Window>
