@@ -153,3 +153,4 @@ D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\n
 D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\net8.0-windows\WPF_Updated_Money_Manager.pdb
 D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\net8.0-windows\WPF_Updated_Money_Manager.genruntimeconfig.cache
 D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\net8.0-windows\ref\WPF_Updated_Money_Manager.dll
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\net8.0-windows\WPF_Updated_Money_Manager.sourcelink.json

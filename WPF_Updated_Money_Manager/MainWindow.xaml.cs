@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
 
 namespace WPF_Updated_Money_Manager
 {
@@ -32,11 +32,24 @@ namespace WPF_Updated_Money_Manager
             InitializeComponent();
             // Ініціалізація колекції транзакцій
             Transactions_ = new ObservableCollection<Transaction>();
+
+            using (var db = new AppDbContext())
+            {
+                // Створення БД, якщо не існує
+                db.Database.EnsureCreated();
+
+                // Завантаження усіх транзакцій з БД
+                var savedTransactions = db.Transactions.ToList();
+                foreach (var transaction in savedTransactions)
+                {
+                    Transactions_.Add(transaction);
+                    Balance += transaction.Amount;
+                }
+            }
             // Прив'язка ListView до колекції Transactions
             TransactionHistoryListView.ItemsSource = Transactions_;
-            // Ініціалізація балансу як нуль
-            Balance = 0;
-
+            // Відображення початкового балансу
+            BalanceTextBlock.Text = Balance.ToString("0.00 грн");
         }
         private void AddTransaction_Click(object sender, RoutedEventArgs e)
         {
@@ -126,6 +139,14 @@ namespace WPF_Updated_Money_Manager
                     Category = category,
                     Amount = amount,
                 };
+
+                // Збереження транзакції в БД
+                using (var db = new AppDbContext())
+                {
+                    db.Transactions.Add(transaction);
+                    db.SaveChanges();
+                }
+
                 // Додавання транзакції до колекції
                 Transactions_.Add(transaction);
                 // Оновлення балансу з урахуванням нової транзакції
@@ -146,7 +167,10 @@ namespace WPF_Updated_Money_Manager
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Process unityGame = new Process();
-            unityGame.StartInfo.FileName = @"..\..\Clicker\ВТ-18-00-C#.exe";
+            var exePath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory, "Clicker", "ВТ-18-00-C#.exe");
+            unityGame.StartInfo.FileName = exePath;
+            //unityGame.StartInfo.FileName = @"..\..\Clicker\ВТ-18-00-C#.exe";
             unityGame.StartInfo.UseShellExecute = false;
             unityGame.Start();
         }
