@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.IO;
+using Microsoft.VisualBasic;
 
 namespace WPF_Updated_Money_Manager
 {
@@ -174,6 +175,45 @@ namespace WPF_Updated_Money_Manager
             unityGame.StartInfo.UseShellExecute = false;
             unityGame.Start();
         }
+
+        private void DeleteTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            // Перевірка, чи вибрано транзакцію
+            if (TransactionHistoryListView.SelectedItem is Transaction transaction)
+            {
+                // Відображення вікна підтвердженян видалення
+                MessageBoxResult result = MessageBox.Show(
+                    "Ви впевнені, що хочете видалити вибрану транзакцію?",
+                    "Підтвердження видалення",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Видалення транзакції з бази даних
+                    using (var db = new AppDbContext())
+                    {
+                        db.Attach(transaction);
+                        db.Transactions.Remove(transaction);
+                        db.SaveChanges();
+                    }
+                }
+
+                // Видалення транзакції з колекції, що оновлює UI
+                Transactions_.Remove(transaction);
+
+                // Оновлення балансу
+                Balance -= transaction.Amount;
+                BalanceTextBlock.Text = Balance.ToString("0.00 грн");
+            }
+            else
+            {
+                MessageBox.Show("Будь ласка, виберіть транзакцію для видалення.",
+                    "Інформація",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+        }
+        
     }
     
 }

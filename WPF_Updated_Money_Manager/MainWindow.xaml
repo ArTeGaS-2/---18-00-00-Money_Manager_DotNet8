@@ -95,6 +95,9 @@
             <TextBlock Text="Баланс: " FontSize="16" FontWeight="Bold"/>
             <TextBlock x:Name="BalanceTextBlock" Text="0.00 грн" FontSize="16"
                        FontWeight="Bold" Margin="5,0,0,0"/>
+            <Button Content="Видалити" Width="100" Margin="20,0,0,0"
+                    Click="DeleteTransaction_Click"
+                    Style="{DynamicResource MaterialDesignFlatButton}"/>
             <Button Content="Вихід" Width="100" Margin="20,0,0,0" Click="Exit_Button"
                     Style="{DynamicResource MaterialDesignFlatButton}"/>
         </StackPanel>
