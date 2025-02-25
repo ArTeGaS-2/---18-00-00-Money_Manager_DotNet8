@@ -26,6 +26,23 @@ namespace WPF_Updated_Money_Manager
         private ObservableCollection<Transaction> Transactions_;
         // Змінна для зберігання поточного балансу
         private decimal Balance;
+
+        private readonly List<string> incomeCategories = new List<string>
+        {
+            "Зарплата",
+            "Інше"
+        };
+        private readonly List<string> expenseCategories = new List<string>
+        {
+            "Комунальні платежі",
+            "Освіта",
+            "Медицина",
+            "Продукти",
+            "Розваги",
+            "Волонтерство",
+            "Гардероб",
+            "Інше"
+        };
         public MainWindow()
         {
             Instance = this;
@@ -87,47 +104,6 @@ namespace WPF_Updated_Money_Manager
             if (type == "Витрати")
             {
                 amount = -amount;
-            }
-            if (type == "Доходи")
-            {
-                switch (category)
-                {
-                    case "Комунальні платежі":
-                        MessageBox.Show("Невірна категорія", "Помилка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                        canBeAdded = false;
-                        break;
-                    case "Освіта":
-                        MessageBox.Show("Невірна категорія", "Помилка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                        canBeAdded = false;
-                        break;
-                    case "Медицина":
-                        MessageBox.Show("Невірна категорія", "Помилка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                        canBeAdded = false;
-                        break;
-                    case "Продукти":
-                        MessageBox.Show("Невірна категорія", "Помилка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                        canBeAdded = false;
-                        break;
-                    case "Розваги":
-                        MessageBox.Show("Невірна категорія", "Помилка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                        canBeAdded = false;
-                        break;
-                    case "Волонтерство":
-                        MessageBox.Show("Невірна категорія", "Помилка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                        canBeAdded = false;
-                        break;
-                    case "Гардероб":
-                        MessageBox.Show("Невірна категорія", "Помилка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                        canBeAdded = false;
-                        break;
-                }
             }
 
             if (canBeAdded)
@@ -213,7 +189,41 @@ namespace WPF_Updated_Money_Manager
                     MessageBoxImage.Information);
             }
         }
-        
-    }
-    
+
+        private void TransactionTypeCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateCategoryComboBox();
+        }
+
+        private void UpdateCategoryComboBox()
+        {
+            // Очистити існуючі елементи
+            CategoryComboBox.Items.Clear();
+
+            // Визначити обраний тип транзакції
+            string selectedType = ((ComboBoxItem)
+                TransactionTypeCombobox.SelectedItem)?.Content.ToString();
+
+            // Заповнити ComboBox відповідно до типу
+            if (selectedType == "Доходи")
+            {
+                foreach (var category in incomeCategories)
+                {
+                    CategoryComboBox.Items.Add(new ComboBoxItem() { Content = category });
+                }
+            }
+            else if (selectedType == "Витрати")
+            {
+                foreach (var category in expenseCategories)
+                {
+                    CategoryComboBox.Items.Add(new ComboBoxItem { Content = category });
+                }
+            }
+            // (Опціонально) встановити перший елемент як вибраний
+            if (CategoryComboBox.Items.Count > 0)
+            {
+                CategoryComboBox.SelectedIndex = 0;
+            }
+        }
+    }  
 }
