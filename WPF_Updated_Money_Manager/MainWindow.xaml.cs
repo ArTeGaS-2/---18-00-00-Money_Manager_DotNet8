@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.IO;
 using Microsoft.VisualBasic;
+using MaterialDesignThemes.Wpf;
 
 namespace WPF_Updated_Money_Manager
 {
@@ -224,6 +225,27 @@ namespace WPF_Updated_Money_Manager
             {
                 CategoryComboBox.SelectedIndex = 0;
             }
+        }
+
+        private void Change_Theme_Button(object sender, RoutedEventArgs e)
+        {
+            // Загальний колір фону
+            this.Background = new SolidColorBrush(Color.FromRgb(50,50,50));
+            // Заголовок
+            this.Title_Text.Foreground = new SolidColorBrush(
+                Color.FromRgb(200,200,200));
+            // Группи
+            this.Group_1.Foreground = new SolidColorBrush(
+                Color.FromRgb(200, 200, 200));
+            
+            this.Group_2.Foreground = new SolidColorBrush(
+                Color.FromRgb(200, 200, 200));
+
+            var paletteHelper = new PaletteHelper();
+            var theme = paletteHelper.GetTheme();
+
+            theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#003208"));
+            paletteHelper.SetTheme(theme);
         }
     }  
 }

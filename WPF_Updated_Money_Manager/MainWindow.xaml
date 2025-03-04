@@ -7,8 +7,8 @@
         xmlns:materialDesign="
         http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
-    <Grid Margin="10">
+        Title="MainWindow" Height="600" Width="800" >
+    <Grid Margin="10" >
         <!-- Рядки та стовбці будуть визначені тут -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -21,14 +21,14 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
                    Text="Фінансовий менеджер"
-                   FontSize="24"
+                   FontSize="24" x:Name="Title_Text"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Margin="0,0,0,10"/>
         <GroupBox Header="Додати запис"
                   Grid.Column="0" Grid.Row="1"
-                  Margin="10">
+                  Margin="10" x:Name="Group_1">
             <!-- Вміст GroupBox буде додано тут -->
             <StackPanel>
                 <TextBlock Text="Тип запису:" Margin="0,5,0,5"/>
@@ -61,7 +61,7 @@
         </GroupBox>
         <!-- Секція історії транзакцій -->
         <GroupBox Header="Історія транзакцій" Grid.Row="1" Grid.Column="1"
-                  Margin="10">
+                  Margin="10" x:Name="Group_2">
             <ListView x:Name="TransactionHistoryListView">
                 <ListView.View>
                     <GridView>
@@ -84,6 +84,9 @@
         <!-- Секція балансу та виходу -->
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal"
                     HorizontalAlignment="Right" Margin="10">
+            <Button Content="Кольорова тема" Width="150" Margin="20,0,235,0"
+                    Click="Change_Theme_Button"
+                    Style="{DynamicResource MaterialDesignFlatButton}"/>
             <TextBlock Text="Баланс: " FontSize="16" FontWeight="Bold"/>
             <TextBlock x:Name="BalanceTextBlock" Text="0.00 грн" FontSize="16"
                        FontWeight="Bold" Margin="5,0,0,0"/>
