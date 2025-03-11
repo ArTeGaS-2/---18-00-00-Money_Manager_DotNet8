@@ -46,7 +46,15 @@ namespace WPF_Updated_Money_Manager
         };
         public MainWindow()
         {
-            Instance = this;
+            //Instance = this;
+            if (Instance == null)
+            {
+                Instance = new MainWindow();
+            }
+            else
+            {
+                Instance = this;
+            }
 
             InitializeComponent();
             // Ініціалізація колекції транзакцій
