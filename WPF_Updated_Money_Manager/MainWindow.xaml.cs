@@ -46,15 +46,8 @@ namespace WPF_Updated_Money_Manager
         };
         public MainWindow()
         {
-            //Instance = this;
-            if (Instance == null)
-            {
-                Instance = new MainWindow();
-            }
-            else
-            {
-                Instance = this;
-            }
+            Instance = this;
+            
 
             InitializeComponent();
             // Ініціалізація колекції транзакцій
@@ -249,10 +242,30 @@ namespace WPF_Updated_Money_Manager
             this.Group_2.Foreground = new SolidColorBrush(
                 Color.FromRgb(200, 200, 200));
 
+            // Группи
+            TransactionHistoryListView.Background = new SolidColorBrush(
+                Color.FromRgb(200,200,200));
+            TransactionHistoryListView.Foreground = new SolidColorBrush(
+                Color.FromRgb(200, 200, 200));
+
+            // Зміна кольору балансу
+            BalanceTextBlock.Foreground = new SolidColorBrush(
+                Color.FromRgb(200,200,200));
+            // Змінити колір для всіх TextBlock в StackPanel
+            foreach (var child in LogicalTreeHelper.GetChildren(
+                Group_1.Content as StackPanel))
+            {
+                if (child is TextBlock)
+                {
+                    (child as TextBlock).Foreground = new SolidColorBrush(
+                        Color.FromRgb(200,200,200));
+                }
+            }
+
             var paletteHelper = new PaletteHelper();
             var theme = paletteHelper.GetTheme();
 
-            theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#003208"));
+            theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#23AF00"));
             paletteHelper.SetTheme(theme);
         }
     }  

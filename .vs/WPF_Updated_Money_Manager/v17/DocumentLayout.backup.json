@@ -38,12 +38,11 @@
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "D:\\C#\\\u0412\u0422-18-00\\WPF_Updated_Money_Manager\\WPF_Updated_Money_Manager\\AppDbContext.cs",
               "RelativeDocumentMoniker": "WPF_Updated_Money_Manager\\AppDbContext.cs",
-              "ToolTip": "D:\\C#\\\u0412\u0422-18-00\\WPF_Updated_Money_Manager\\WPF_Updated_Money_Manager\\AppDbContext.cs*",
-              "RelativeToolTip": "WPF_Updated_Money_Manager\\AppDbContext.cs*",
+              "ToolTip": "D:\\C#\\\u0412\u0422-18-00\\WPF_Updated_Money_Manager\\WPF_Updated_Money_Manager\\AppDbContext.cs",
+              "RelativeToolTip": "WPF_Updated_Money_Manager\\AppDbContext.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T17:32:47.792Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-04T17:32:47.792Z"
             },
             {
               "$type": "Document",
@@ -89,7 +88,7 @@
               "RelativeDocumentMoniker": "WPF_Updated_Money_Manager\\MainWindow.xaml.cs",
               "ToolTip": "D:\\C#\\\u0412\u0422-18-00\\WPF_Updated_Money_Manager\\WPF_Updated_Money_Manager\\MainWindow.xaml.cs",
               "RelativeToolTip": "WPF_Updated_Money_Manager\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAuwPkAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAPUAAAAAAAAAAAAAAAUBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-04T16:14:36.958Z",
               "EditorCaption": ""

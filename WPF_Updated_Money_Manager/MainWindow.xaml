@@ -82,19 +82,29 @@
             </ListView>
         </GroupBox>
         <!-- Секція балансу та виходу -->
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal"
-                    HorizontalAlignment="Right" Margin="10">
-            <Button Content="Кольорова тема" Width="150" Margin="20,0,235,0"
-                    Click="Change_Theme_Button"
-                    Style="{DynamicResource MaterialDesignFlatButton}"/>
-            <TextBlock Text="Баланс: " FontSize="16" FontWeight="Bold"/>
-            <TextBlock x:Name="BalanceTextBlock" Text="0.00 грн" FontSize="16"
-                       FontWeight="Bold" Margin="5,0,0,0"/>
-            <Button Content="Видалити" Width="100" Margin="20,0,0,0"
-                    Click="DeleteTransaction_Click"
-                    Style="{DynamicResource MaterialDesignFlatButton}"/>
-            <Button Content="Вихід" Width="100" Margin="20,0,0,0" Click="Exit_Button"
-                    Style="{DynamicResource MaterialDesignFlatButton}"/>
-        </StackPanel>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Content="Кольорова тема" Width="150" Margin="0"
+                Click="Change_Theme_Button" HorizontalAlignment="Left"
+                Style="{DynamicResource MaterialDesignFlatButton}"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                        Grid.Column="1">
+                
+                <TextBlock Text="Баланс: " FontSize="16" FontWeight="Bold"/>
+                <TextBlock x:Name="BalanceTextBlock" Text="0.00 грн" FontSize="16"
+               FontWeight="Bold" Margin="5,0,0,0"/>
+                <Button Content="Видалити" Width="100" Margin="20,0,0,0"
+            Click="DeleteTransaction_Click"
+            Style="{DynamicResource MaterialDesignFlatButton}"/>
+                <Button Content="Вихід" Width="100" Margin="20,0,0,0" Click="Exit_Button"
+            Style="{DynamicResource MaterialDesignFlatButton}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
