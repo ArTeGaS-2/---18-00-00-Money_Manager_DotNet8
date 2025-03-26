@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.ComponentModel;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -27,6 +28,11 @@ namespace WPF_Updated_Money_Manager
         private ObservableCollection<Transaction> Transactions_;
         // Змінна для зберігання поточного балансу
         private decimal Balance;
+
+        // Змінні для відстеженян стану сортування
+        private GridViewColumnHeader _lastHeaderClicked = null; // Заголовок
+        private ListSortDirection _lastDirection = 
+            ListSortDirection.Ascending; // Напрямок сортування
 
         private readonly List<string> incomeCategories = new List<string>
         {
@@ -267,6 +273,55 @@ namespace WPF_Updated_Money_Manager
 
             theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#23AF00"));
             paletteHelper.SetTheme(theme);
+        }
+
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            // Отримуємо заголовок стовпця, по якому клікнули
+            var headerClicked = e.OriginalSource as GridViewColumnHeader;
+            // Перевіряємо, що це дійсно заголовок і не поронжній об'єкт
+            if (headerClicked != null && headerClicked.Role !=
+                GridViewColumnHeaderRole.Padding)
+            {
+                ListSortDirection direction;
+
+                // Якщо клікнули на новий стовпець - сортуємо за зростанням
+                if (headerClicked != _lastHeaderClicked)
+                {
+                    direction = ListSortDirection.Ascending;
+                }
+                else
+                {
+                    // Якщо клікнули на той самий стовпець - змінюємо
+                    // напрямок сортування
+                    direction = _lastDirection == ListSortDirection.Ascending ?
+                        ListSortDirection.Descending : ListSortDirection.Ascending;
+                }
+                // Отримуємо ім'я властивості для сортування
+                var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
+                string sortBy = columnBinding?.Path.Path ??
+                    headerClicked.Column.Header.ToString();
+                // Виконуємо сортування
+                Sort(sortBy, direction);
+                // Запам'ятовуємо поточний стано для наступного кліку
+                _lastHeaderClicked = headerClicked;
+                _lastDirection = direction;
+            }
+        }
+
+        // Метод що виконує сортування
+        private void Sort(string sortBy, ListSortDirection direction)
+        {
+            // Отримуємо представлення колекції для сортування
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(
+                TransactionHistoryListView.ItemsSource);
+            // Очищуємо попередні сортування
+            dataView.SortDescriptions.Clear();
+            // Додаємо нове сортування
+            SortDescription sd = new SortDescription(sortBy, direction);
+            dataView.SortDescriptions.Add(sd);
+            // Оновлюємо відображення
+            dataView.Refresh();
         }
     }  
 }

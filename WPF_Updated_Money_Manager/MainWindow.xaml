@@ -65,6 +65,11 @@
             <ListView x:Name="TransactionHistoryListView">
                 <ListView.View>
                     <GridView>
+                        <GridView.ColumnHeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <EventSetter Event="Click" Handler="GridViewColumnHeader_Click"/>
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
                         <GridViewColumn Header="Дата"
                                         DisplayMemberBinding="{Binding Date}"
                                         Width="100"/>
