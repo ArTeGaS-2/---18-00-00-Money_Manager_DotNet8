@@ -50,6 +50,16 @@ namespace WPF_Updated_Money_Manager
             "Гардероб",
             "Інше"
         };
+
+        // Відображає стан темної теми
+        private bool isDarkTheme = false;
+
+        // Змінні, що зберігають світлу тему
+        private Brush origWindowBg;
+        private Brush origTextFg;
+        private Brush origListBg;
+        private Brush origListFg;
+
         public MainWindow()
         {
             Instance = this;
@@ -236,43 +246,71 @@ namespace WPF_Updated_Money_Manager
 
         private void Change_Theme_Button(object sender, RoutedEventArgs e)
         {
-            // Загальний колір фону
-            this.Background = new SolidColorBrush(Color.FromRgb(50,50,50));
-            // Заголовок
-            this.Title_Text.Foreground = new SolidColorBrush(
-                Color.FromRgb(200,200,200));
-            // Группи
-            this.Group_1.Foreground = new SolidColorBrush(
-                Color.FromRgb(200, 200, 200));
-            
-            this.Group_2.Foreground = new SolidColorBrush(
-                Color.FromRgb(200, 200, 200));
-
-            // Группи
-            TransactionHistoryListView.Background = new SolidColorBrush(
-                Color.FromRgb(200,200,200));
-            TransactionHistoryListView.Foreground = new SolidColorBrush(
-                Color.FromRgb(200, 200, 200));
-
-            // Зміна кольору балансу
-            BalanceTextBlock.Foreground = new SolidColorBrush(
-                Color.FromRgb(200,200,200));
-            // Змінити колір для всіх TextBlock в StackPanel
-            foreach (var child in LogicalTreeHelper.GetChildren(
-                Group_1.Content as StackPanel))
+            // 1-й виклик - запам'ятовуємо базові кольори
+            if (origWindowBg == null)
             {
-                if (child is TextBlock)
-                {
-                    (child as TextBlock).Foreground = new SolidColorBrush(
-                        Color.FromRgb(200,200,200));
-                }
+                origWindowBg = this.Background;
+                origTextFg = this.Title_Text.Foreground;
+                origListBg = TransactionHistoryListView.Background;
+                origListFg = TransactionHistoryListView.Foreground;
             }
+            isDarkTheme = !isDarkTheme; // Інвертуємо значення змінної
+            // Dark theme
+            if (isDarkTheme)
+            {
+                // Загальний колір фону
+                this.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
+                // Заголовок
+                this.Title_Text.Foreground = new SolidColorBrush(
+                    Color.FromRgb(200, 200, 200));
+                // Группи
+                this.Group_1.Foreground = new SolidColorBrush(
+                    Color.FromRgb(200, 200, 200));
 
-            var paletteHelper = new PaletteHelper();
-            var theme = paletteHelper.GetTheme();
+                this.Group_2.Foreground = new SolidColorBrush(
+                    Color.FromRgb(200, 200, 200));
 
-            theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#23AF00"));
-            paletteHelper.SetTheme(theme);
+                // Группи
+                TransactionHistoryListView.Background = new SolidColorBrush(
+                    Color.FromRgb(200, 200, 200));
+                TransactionHistoryListView.Foreground = new SolidColorBrush(
+                    Color.FromRgb(200, 200, 200));
+
+                // Зміна кольору балансу
+                BalanceTextBlock.Foreground = new SolidColorBrush(
+                    Color.FromRgb(200, 200, 200));
+                // Змінити колір для всіх TextBlock в StackPanel
+                foreach (var child in LogicalTreeHelper.GetChildren(
+                    Group_1.Content as StackPanel))
+                {
+                    if (child is TextBlock)
+                    {
+                        (child as TextBlock).Foreground = new SolidColorBrush(
+                            Color.FromRgb(200, 200, 200));
+                    }
+                }
+
+                var paletteHelper = new PaletteHelper();
+                var theme = paletteHelper.GetTheme();
+
+                theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#23AF00"));
+                paletteHelper.SetTheme(theme);
+            }
+            else
+            {
+                this.Background = origWindowBg;
+                this.Title_Text.Foreground = origTextFg;
+                this.Group_1.Foreground = this.Group_2.Foreground = 
+                    BalanceTextBlock.Foreground = origTextFg;
+
+                TransactionHistoryListView.Background = origListBg;
+                TransactionHistoryListView.Foreground = origListFg;
+
+                var paletteHelper = new PaletteHelper();
+                var theme = paletteHelper.GetTheme();
+                theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#673ab7"));
+                paletteHelper.SetTheme(theme);
+            }
         }
 
         private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
@@ -322,6 +360,11 @@ namespace WPF_Updated_Money_Manager
             dataView.SortDescriptions.Add(sd);
             // Оновлюємо відображення
             dataView.Refresh();
+        }
+
+        private void TransactionHistoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }  
 }

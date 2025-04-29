@@ -62,7 +62,9 @@
         <!-- Секція історії транзакцій -->
         <GroupBox Header="Історія транзакцій" Grid.Row="1" Grid.Column="1"
                   Margin="10" x:Name="Group_2">
-            <ListView x:Name="TransactionHistoryListView">
+            <ListView x:Name="TransactionHistoryListView" 
+                      SelectionMode="Extended"
+                      SelectionChanged="TransactionHistoryListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridView.ColumnHeaderContainerStyle>
