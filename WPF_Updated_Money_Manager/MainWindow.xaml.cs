@@ -86,6 +86,10 @@ namespace WPF_Updated_Money_Manager
             TransactionHistoryListView.ItemsSource = Transactions_;
             // Відображення початкового балансу
             BalanceTextBlock.Text = Balance.ToString("0.00 грн");
+
+            TransactionHistoryListView.SelectionChanged +=
+                TransactionHistoryListView_SelectionChanged;
+
         }
         private void AddTransaction_Click(object sender, RoutedEventArgs e)
         {
@@ -308,7 +312,8 @@ namespace WPF_Updated_Money_Manager
 
                 var paletteHelper = new PaletteHelper();
                 var theme = paletteHelper.GetTheme();
-                theme.SetPrimaryColor((Color)ColorConverter.ConvertFromString("#673ab7"));
+                theme.SetPrimaryColor((
+                    Color)ColorConverter.ConvertFromString("#673ab7"));
                 paletteHelper.SetTheme(theme);
             }
         }
@@ -362,9 +367,18 @@ namespace WPF_Updated_Money_Manager
             dataView.Refresh();
         }
 
-        private void TransactionHistoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TransactionHistoryListView_SelectionChanged(
+            object sender, SelectionChangedEventArgs e)
         {
+            decimal selectedSum = 0m;
 
+            foreach (Transaction t in
+                TransactionHistoryListView.SelectedItems)
+            {
+                selectedSum += t.Amount;
+                SelectedSumTextBlock.Text = selectedSum.ToString(
+                    "0.00 грн");
+            }
         }
     }  
 }

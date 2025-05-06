@@ -102,7 +102,11 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                         Grid.Column="1">
-                
+                <TextBlock Text="Сума вибраного:" Margin="0,0,0,0"
+                           FontSize="16" FontWeight="Bold"/>
+                <TextBlock x:Name="SelectedSumTextBlock" Text="0.00 грн"
+                           Margin="6,0,10,0" FontSize="16" FontWeight="Bold"/>
+
                 <TextBlock Text="Баланс: " FontSize="16" FontWeight="Bold"/>
                 <TextBlock x:Name="BalanceTextBlock" Text="0.00 грн" FontSize="16"
                FontWeight="Bold" Margin="5,0,0,0"/>
