@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WPF_Updated_Money_Manager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+572ab4e9708bb3b8e8f96fc31646520490f0d112")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b87cc9a40af6a9d634e165c6fc2040d8d3b5dce3")]
 [assembly: System.Reflection.AssemblyProductAttribute("WPF_Updated_Money_Manager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WPF_Updated_Money_Manager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

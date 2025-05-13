@@ -1,18 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.ComponentModel;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.IO;
-using Microsoft.VisualBasic;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
+using ClosedXML.Excel;
+using System.Text;
 
 namespace WPF_Updated_Money_Manager
 {
@@ -379,6 +376,16 @@ namespace WPF_Updated_Money_Manager
                 SelectedSumTextBlock.Text = selectedSum.ToString(
                     "0.00 грн");
             }
+        }
+
+        private void SaveToExcel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveToCSV_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }  
 }

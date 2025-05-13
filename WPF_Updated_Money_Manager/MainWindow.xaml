@@ -95,6 +95,10 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
             
             <Button Content="Кольорова тема" Width="150" Margin="0"
                 Click="Change_Theme_Button" HorizontalAlignment="Left"
@@ -115,6 +119,13 @@
             Style="{DynamicResource MaterialDesignFlatButton}"/>
                 <Button Content="Вихід" Width="100" Margin="20,0,0,0" Click="Exit_Button"
             Style="{DynamicResource MaterialDesignFlatButton}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" 
+                        HorizontalAlignment="Right">
+                <Button Content="Експорт в Excel" Margin="5,0,5,0"
+                        Click="SaveToExcel_Click"/>
+                <Button Content="Експорт в CSV" Margin="5,0,5,0"
+                        Click="SaveToCSV_Click"/>
             </StackPanel>
         </Grid>
     </Grid>
