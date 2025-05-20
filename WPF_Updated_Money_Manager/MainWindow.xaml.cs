@@ -10,6 +10,7 @@ using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using ClosedXML.Excel;
 using System.Text;
+using ControlzEx.Standard;
 
 namespace WPF_Updated_Money_Manager
 {
@@ -377,12 +378,44 @@ namespace WPF_Updated_Money_Manager
                     "0.00 грн");
             }
         }
-
         private void SaveToExcel_Click(object sender, RoutedEventArgs e)
         {
+            // Вікриваємо діалог для вибору шляху та імені файлу
+            var dlg = new SaveFileDialog
+            {
+                Filter = "Excel Workbook (*.xlsx)|*.xlsx", // Формат файлу
+                FileName = "transactions.xlsx" // Початкове ім'я файлу
+            };
+            // Якщо користувач відмінив діалог, виходимо
+            if (dlg.ShowDialog() != true) return;
+            // Стврюємо нову книгу Excel
+            using (var wb = new XLWorkbook())
+            {
+                // Додаємо робочий аркуш з назвою
+                var ws = wb.Worksheets.Add("Transactions");
 
+                // Заповнюємо шапку таблиці
+                ws.Cell(1, 1).Value = "Id";
+                ws.Cell(1, 2).Value = "Date";
+                ws.Cell(1, 3).Value = "Type";
+                ws.Cell(1, 4).Value = "Category";
+                ws.Cell(1, 5).Value = "Amount";
+
+                int row = 2; // Початковий рядок для даних (після заголовка)
+                foreach (var t in Transactions_)
+                {
+                    // Заповнюємо кожен рядок аркуша данними транзакції
+                    ws.Cell(row, 1).Value = t.Id;
+                    ws.Cell(row, 2).Value = t.Date;
+                    ws.Cell(row, 3).Value = t.Type;
+                    ws.Cell(row, 4).Value = t.Category;
+                    ws.Cell(row, 5).Value = t.Amount;
+                    row++;
+                }
+                wb.SaveAs(dlg.FileName);
+            }
+            MessageBox.Show("Excel-файл збережено!");
         }
-
         private void SaveToCSV_Click(object sender, RoutedEventArgs e)
         {
 
