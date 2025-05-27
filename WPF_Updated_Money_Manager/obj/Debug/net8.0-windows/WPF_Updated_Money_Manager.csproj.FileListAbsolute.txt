@@ -154,3 +154,11 @@ D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\n
 D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\net8.0-windows\WPF_Updated_Money_Manager.genruntimeconfig.cache
 D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\net8.0-windows\ref\WPF_Updated_Money_Manager.dll
 D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\obj\Debug\net8.0-windows\WPF_Updated_Money_Manager.sourcelink.json
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\bin\Debug\net8.0-windows\ClosedXML.dll
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\bin\Debug\net8.0-windows\ClosedXML.Parser.dll
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.dll
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.Framework.dll
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\bin\Debug\net8.0-windows\ExcelNumberFormat.dll
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\bin\Debug\net8.0-windows\RBush.dll
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
+D:\C#\ВТ-18-00\WPF_Updated_Money_Manager\WPF_Updated_Money_Manager\bin\Debug\net8.0-windows\System.IO.Packaging.dll

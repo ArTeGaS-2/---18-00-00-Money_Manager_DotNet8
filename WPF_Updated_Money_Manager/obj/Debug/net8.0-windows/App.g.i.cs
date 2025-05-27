@@ -62,7 +62,7 @@ namespace WPF_Updated_Money_Manager {
             
             #line default
             #line hidden
-            System.Uri resourceLocater = new System.Uri("/WPF_Updated_Money_Manager;V1.0.0.0;component/app.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WPF_Updated_Money_Manager;component/app.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\App.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

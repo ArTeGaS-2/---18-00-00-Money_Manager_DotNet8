@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using ClosedXML.Excel;
 using System.Text;
 using ControlzEx.Standard;
+using System.Globalization;
 
 namespace WPF_Updated_Money_Manager
 {
@@ -418,7 +419,138 @@ namespace WPF_Updated_Money_Manager
         }
         private void SaveToCSV_Click(object sender, RoutedEventArgs e)
         {
+            // Налаштовуємо діалог збереження файлу
+            var dlg = new SaveFileDialog
+            {
+                Filter = "CSV files (*.csv)|*.csv",     // Дозволені формати
+                FileName = "transactions.csv"              // Початкове ім'я файлу
+            };
+            // Якщо користувач натиснув "Скасувати", припиняємо виконання
+            if (dlg.ShowDialog() != true) return;
 
+            // Будуємо вміст CSV за допомогою StringBuilder
+            var sb = new StringBuilder();
+            sb.AppendLine("Id,Date,Type,Category,Amount");  // Додаємо заголовок стовпців
+            foreach (var t in Transactions_)
+            {
+                // Для кожної транзакції формуємо рядок та додаємо в буфер
+                sb.AppendLine($"{t.Id},{t.Date},{t.Type},{t.Category},{t.Amount}");
+            }
+
+            // Записуємо зібраний текст у файл у кодуванні UTF-8
+            File.WriteAllText(dlg.FileName, sb.ToString(), Encoding.UTF8);
+
+            // Повідомляємо користувача про успішне збереження
+            MessageBox.Show("CSV збережено!");
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            // 2.1. Відкриваємо діалог вибору файлу CSV
+            var dlg = new OpenFileDialog { Filter = "CSV files (*.csv)|*.csv" };
+            if (dlg.ShowDialog() != true)
+                return;  // користувач скасував — нічого не робимо
+
+            // 2.2. Спершу повністю очищаємо старі дані
+            ClearData();
+
+            // 2.3. Зчитуємо всі рядки CSV (UTF-8)
+            var lines = File.ReadAllLines(dlg.FileName, Encoding.UTF8);
+
+            // 2.4. Перебираємо всі рядки, пропускаючи перший (заголовок)
+            foreach (var line in lines.Skip(1))
+            {
+                var parts = line.Split(',');     // розбиваємо на поля по комі
+                if (parts.Length < 5) continue;  // якщо мало стовпців — пропускаємо
+
+                // 2.5. Створюємо новий об’єкт Transaction, парсимо поля
+                var t = new Transaction
+                {
+                    Id = int.Parse(parts[0]),
+                    Date = parts[1],
+                    Type = parts[2],
+                    Category = parts[3],
+                    Amount = decimal.Parse(parts[4], CultureInfo.InvariantCulture)
+                };
+                // 2.6. Додаємо в колекцію для UI
+                Transactions_.Add(t);
+            }
+
+            // 2.7. Масово зберігаємо нові записи в БД
+            using (var db = new AppDbContext())
+            {
+                db.Transactions.AddRange(Transactions_);
+                db.SaveChanges();
+            }
+
+            // 2.8. Перераховуємо та відображаємо новий баланс
+            Balance = Transactions_.Sum(x => x.Amount);
+            BalanceTextBlock.Text = Balance.ToString("0.00 грн");
+
+            // 2.9. Сповіщаємо користувача про успішний імпорт
+            MessageBox.Show("CSV імпортовано!");
+        }
+
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            // 3.1. Відкриваємо діалог вибору файлу Excel
+            var dlg = new OpenFileDialog { Filter = "Excel Workbook (*.xlsx)|*.xlsx" };
+            if (dlg.ShowDialog() != true)
+                return;  // користувач скасував
+
+            // 3.2. Очищаємо старі дані перед завантаженням нових
+            ClearData();
+
+            // 3.3. Відкриваємо книгу та беремо перший аркуш
+            using var wb = new XLWorkbook(dlg.FileName);
+            var ws = wb.Worksheet(1);
+
+            // 3.4. Перебираємо всі заповнені рядки, пропускаючи перший (заголовок)
+            foreach (var row in ws.RowsUsed().Skip(1))
+            {
+                // 3.5. Створюємо Transaction з даних комірок
+                var t = new Transaction
+                {
+                    Id = row.Cell(1).GetValue<int>(),
+                    Date = row.Cell(2).GetValue<string>(),
+                    Type = row.Cell(3).GetValue<string>(),
+                    Category = row.Cell(4).GetValue<string>(),
+                    Amount = row.Cell(5).GetValue<decimal>()
+                };
+                Transactions_.Add(t);  // додаємо до колекції UI
+            }
+
+            // 3.6. Зберігаємо всі нові записи в БД
+            using (var db = new AppDbContext())
+            {
+                db.Transactions.AddRange(Transactions_);
+                db.SaveChanges();
+            }
+
+            // 3.7. Оновлюємо баланс і відображаємо його
+            Balance = Transactions_.Sum(x => x.Amount);
+            BalanceTextBlock.Text = Balance.ToString("0.00 грн");
+
+            // 3.8. Повідомляємо про успіх
+            MessageBox.Show("Excel імпортовано!");
+        }
+
+        private void ClearData()
+        {
+            // 1.1. Через контекст EF Core видаляємо всі записи з таблиці Transactions
+            using (var db = new AppDbContext())
+            {
+                db.Transactions.RemoveRange(db.Transactions);
+                db.SaveChanges();
+            }
+
+            // 1.2. Очищаємо колекцію, що прив’язана до UI (ObservableCollection)
+            Transactions_.Clear();
+
+            // 1.3. Скидаємо баланс і оновлюємо відповідний текстовий блок
+            Balance = 0;
+            BalanceTextBlock.Text = "0.00 грн";
         }
     }  
 }

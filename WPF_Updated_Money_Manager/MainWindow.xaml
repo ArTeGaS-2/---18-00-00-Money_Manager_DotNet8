@@ -7,7 +7,7 @@
         xmlns:materialDesign="
         http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" >
+        Title="MainWindow" Height="600" Width="1000" >
     <Grid Margin="10" >
         <!-- Рядки та стовбці будуть визначені тут -->
         <Grid.RowDefinitions>
@@ -126,6 +126,10 @@
                         Click="SaveToExcel_Click"/>
                 <Button Content="Експорт в CSV" Margin="5,0,5,0"
                         Click="SaveToCSV_Click"/>
+                <Button Content="Імпорт з Excel" Margin="5,0,5,0"
+                        Click="Button_Click_1"/>
+                <Button Content="Імпорт з CSV" Margin="5,0,5,0"
+                        Click="Button_Click_2"/>
             </StackPanel>
         </Grid>
     </Grid>
